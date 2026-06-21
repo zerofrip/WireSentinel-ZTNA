@@ -1,0 +1,23 @@
+[package]
+name = "gateway"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+ztna-core = { workspace = true }
+shared-types = { workspace = true }
+tokio = { workspace = true }
+uuid = { workspace = true }
+chrono = { workspace = true }
+tracing = { workspace = true }
+axum = { workspace = true }
+serde = { workspace = true }
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+[[bin]]
+name = "ztna-gateway"
+path = "src/bin/ztna-gateway.rs"
+
+[dev-dependencies]
+tokio = { workspace = true }

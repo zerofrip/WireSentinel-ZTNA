@@ -1,0 +1,13 @@
+[package]
+name = "connectors"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+ztna-core = { workspace = true }
+shared-types = { workspace = true }
+uuid = { workspace = true }
+chrono = { workspace = true }
+parking_lot = { workspace = true }
+serde = { workspace = true }
