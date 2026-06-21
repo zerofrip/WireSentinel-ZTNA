@@ -18,7 +18,11 @@ impl LocalIdentityProvider {
     pub fn with_defaults() -> Self {
         Self {
             users: vec![
-                ("alice".into(), "password".into(), "alice@example.com".into()),
+                (
+                    "alice".into(),
+                    "password".into(),
+                    "alice@example.com".into(),
+                ),
                 ("bob".into(), "password".into(), "bob@example.com".into()),
             ],
         }
@@ -74,16 +78,18 @@ impl IdentityProvider for LocalIdentityProvider {
     }
 
     async fn resolve_user(&self, subject: &str) -> ZtnaResult<Option<UserIdentity>> {
-        Ok(self.users.iter().find(|(u, _, _)| u == subject).map(|(u, _, email)| {
-            UserIdentity {
+        Ok(self
+            .users
+            .iter()
+            .find(|(u, _, _)| u == subject)
+            .map(|(u, _, email)| UserIdentity {
                 id: Uuid::new_v4(),
                 subject: u.clone(),
                 email: Some(email.clone()),
                 display_name: u.clone(),
                 provider: self.kind(),
                 authenticated_at: Utc::now(),
-            }
-        }))
+            }))
     }
 
     async fn list_groups(&self, _user_id: Uuid) -> ZtnaResult<Vec<GroupIdentity>> {

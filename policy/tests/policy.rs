@@ -1,5 +1,7 @@
 use policy::{ConditionalAccessEngine, ZtnaPolicyEngine};
-use shared_types::{DevicePosture, DeviceTrustRecord, Subject, SubjectKind, TrustLevel, ZtnaDecision};
+use shared_types::{
+    DevicePosture, DeviceTrustRecord, Subject, SubjectKind, TrustLevel, ZtnaDecision,
+};
 use uuid::Uuid;
 use ztna_core::ZtnaSecurityPolicy;
 

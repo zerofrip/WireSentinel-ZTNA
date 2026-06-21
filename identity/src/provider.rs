@@ -1,6 +1,8 @@
 use async_trait::async_trait;
 
-use shared_types::{GroupIdentity, IdentityAuthResult, IdentityProviderKind, RoleIdentity, UserIdentity};
+use shared_types::{
+    GroupIdentity, IdentityAuthResult, IdentityProviderKind, RoleIdentity, UserIdentity,
+};
 use ztna_core::ZtnaResult;
 
 /// Pluggable identity provider interface.

@@ -112,13 +112,15 @@ impl ResourcePublisher {
         };
         let payload = serde_json::to_string(published)
             .map_err(|e| ztna_core::ZtnaError::Publishing(e.to_string()))?;
-        sqlx::query("INSERT OR REPLACE INTO published_resources (id, name, payload) VALUES (?1, ?2, ?3)")
-            .bind(published.id.to_string())
-            .bind(&published.name)
-            .bind(payload)
-            .execute(pool)
-            .await
-            .map_err(|e| ztna_core::ZtnaError::Publishing(e.to_string()))?;
+        sqlx::query(
+            "INSERT OR REPLACE INTO published_resources (id, name, payload) VALUES (?1, ?2, ?3)",
+        )
+        .bind(published.id.to_string())
+        .bind(&published.name)
+        .bind(payload)
+        .execute(pool)
+        .await
+        .map_err(|e| ztna_core::ZtnaError::Publishing(e.to_string()))?;
         Ok(())
     }
 }

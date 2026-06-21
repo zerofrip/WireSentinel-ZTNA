@@ -22,7 +22,11 @@ impl IdentityProvider for SamlMockProvider {
         "SAML Mock"
     }
 
-    async fn authenticate(&self, username: &str, _password: &str) -> ZtnaResult<IdentityAuthResult> {
+    async fn authenticate(
+        &self,
+        username: &str,
+        _password: &str,
+    ) -> ZtnaResult<IdentityAuthResult> {
         Ok(IdentityAuthResult {
             success: true,
             user: Some(UserIdentity {

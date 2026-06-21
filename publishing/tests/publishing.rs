@@ -32,7 +32,12 @@ fn attach_access_policy() {
     };
     let published = publisher.publish("CRM", resource.clone());
     let policy = publisher
-        .attach_policy(published.id, ZtnaSecurityPolicy::new("crm-access"), vec![], vec![])
+        .attach_policy(
+            published.id,
+            ZtnaSecurityPolicy::new("crm-access"),
+            vec![],
+            vec![],
+        )
         .unwrap();
     assert_eq!(policy.resource_id, published.id);
 }

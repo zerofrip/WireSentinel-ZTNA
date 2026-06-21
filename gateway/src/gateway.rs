@@ -95,17 +95,14 @@ impl ServiceGateway {
     /// Start axum reverse-proxy stub bound to loopback.
     pub async fn start_http_stub(&self) -> ZtnaResult<SocketAddr> {
         let port = self.listen_port.unwrap_or(18080);
-        let app = Router::new().route(
-            "/",
-            get(|| async { "WireSentinel ZTNA gateway stub" }),
-        );
+        let app = Router::new().route("/", get(|| async { "WireSentinel ZTNA gateway stub" }));
         let addr = SocketAddr::from(([127, 0, 0, 1], port));
-        let listener = TcpListener::bind(addr).await.map_err(|e| {
-            ztna_core::ZtnaError::Gateway(e.to_string())
-        })?;
-        let bound = listener.local_addr().map_err(|e| {
-            ztna_core::ZtnaError::Gateway(e.to_string())
-        })?;
+        let listener = TcpListener::bind(addr)
+            .await
+            .map_err(|e| ztna_core::ZtnaError::Gateway(e.to_string()))?;
+        let bound = listener
+            .local_addr()
+            .map_err(|e| ztna_core::ZtnaError::Gateway(e.to_string()))?;
         tokio::spawn(async move {
             if axum::serve(listener, app).await.is_err() {
                 tracing::warn!("gateway stub stopped");
@@ -116,7 +113,10 @@ impl ServiceGateway {
 
     /// TCP relay stub — records intent without forwarding bytes.
     pub fn tcp_relay_stub(&self, resource: &Resource) -> ZtnaResult<u16> {
-        if !matches!(resource.resource_type, ResourceType::Tcp | ResourceType::Ssh | ResourceType::Database) {
+        if !matches!(
+            resource.resource_type,
+            ResourceType::Tcp | ResourceType::Ssh | ResourceType::Database
+        ) {
             return Err(ztna_core::ZtnaError::Gateway(
                 "resource type does not support TCP relay".into(),
             ));

@@ -23,7 +23,11 @@ impl DeviceTrustEngine {
         }
     }
 
-    pub fn evaluate(&self, device_id: Uuid, posture: DevicePosture) -> ZtnaResult<DeviceTrustRecord> {
+    pub fn evaluate(
+        &self,
+        device_id: Uuid,
+        posture: DevicePosture,
+    ) -> ZtnaResult<DeviceTrustRecord> {
         let score = self.scorer.compute(&posture);
         let trust_level = self.scorer.level_for_score(score);
         let record = DeviceTrustRecord {
@@ -42,7 +46,11 @@ impl DeviceTrustEngine {
         self.records.read().get(&device_id).cloned()
     }
 
-    pub fn update_posture(&self, device_id: Uuid, posture: DevicePosture) -> ZtnaResult<DeviceTrustRecord> {
+    pub fn update_posture(
+        &self,
+        device_id: Uuid,
+        posture: DevicePosture,
+    ) -> ZtnaResult<DeviceTrustRecord> {
         self.evaluate(device_id, posture)
     }
 }

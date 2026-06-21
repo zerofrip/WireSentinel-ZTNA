@@ -7,4 +7,6 @@ mod providers;
 pub use manager::IdentityManager;
 pub use provider::IdentityProvider;
 pub use providers::*;
-pub use shared_types::{GroupIdentity, IdentityAuthResult, IdentityProviderKind, RoleIdentity, UserIdentity};
+pub use shared_types::{
+    GroupIdentity, IdentityAuthResult, IdentityProviderKind, RoleIdentity, UserIdentity,
+};

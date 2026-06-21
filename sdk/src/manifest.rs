@@ -13,7 +13,11 @@ pub struct ZtnaPluginManifest {
 }
 
 impl ZtnaPluginManifest {
-    pub fn new(name: impl Into<String>, version: impl Into<String>, provider: impl Into<String>) -> Self {
+    pub fn new(
+        name: impl Into<String>,
+        version: impl Into<String>,
+        provider: impl Into<String>,
+    ) -> Self {
         Self {
             id: Uuid::new_v4(),
             name: name.into(),

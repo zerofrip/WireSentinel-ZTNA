@@ -29,7 +29,12 @@ impl ApplicationConnector {
         }
     }
 
-    pub fn register(&self, name: impl Into<String>, endpoint: impl Into<String>, resource_ids: Vec<Uuid>) -> ConnectorRegistration {
+    pub fn register(
+        &self,
+        name: impl Into<String>,
+        endpoint: impl Into<String>,
+        resource_ids: Vec<Uuid>,
+    ) -> ConnectorRegistration {
         let connector = Connector {
             id: Uuid::new_v4(),
             name: name.into(),

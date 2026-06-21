@@ -75,7 +75,11 @@ impl IdentityProvider for GenericOidcProvider {
         &self.config.display_name
     }
 
-    async fn authenticate(&self, username: &str, _password: &str) -> ZtnaResult<IdentityAuthResult> {
+    async fn authenticate(
+        &self,
+        username: &str,
+        _password: &str,
+    ) -> ZtnaResult<IdentityAuthResult> {
         Ok(IdentityAuthResult {
             success: true,
             user: Some(UserIdentity {
@@ -169,31 +173,15 @@ macro_rules! oidc_provider {
     };
 }
 
-oidc_provider!(
-    OAuth2Provider,
-    IdentityProviderKind::OAuth2,
-    "OAuth2"
-);
-oidc_provider!(
-    AzureAdProvider,
-    IdentityProviderKind::AzureAd,
-    "Azure AD"
-);
+oidc_provider!(OAuth2Provider, IdentityProviderKind::OAuth2, "OAuth2");
+oidc_provider!(AzureAdProvider, IdentityProviderKind::AzureAd, "Azure AD");
 oidc_provider!(
     GoogleWorkspaceProvider,
     IdentityProviderKind::GoogleWorkspace,
     "Google Workspace"
 );
-oidc_provider!(
-    OktaProvider,
-    IdentityProviderKind::Okta,
-    "Okta"
-);
-oidc_provider!(
-    KeycloakProvider,
-    IdentityProviderKind::Keycloak,
-    "Keycloak"
-);
+oidc_provider!(OktaProvider, IdentityProviderKind::Okta, "Okta");
+oidc_provider!(KeycloakProvider, IdentityProviderKind::Keycloak, "Keycloak");
 
 #[cfg(test)]
 mod tests {

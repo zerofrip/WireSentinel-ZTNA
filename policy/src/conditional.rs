@@ -2,7 +2,8 @@ use chrono::Utc;
 use uuid::Uuid;
 
 use shared_types::{
-    Condition, ConditionalAccessResult, DeviceTrustRecord, Subject, ZtnaDecision, ZtnaSecurityPolicy,
+    Condition, ConditionalAccessResult, DeviceTrustRecord, Subject, ZtnaDecision,
+    ZtnaSecurityPolicy,
 };
 use ztna_core::ZtnaResult;
 
@@ -81,8 +82,15 @@ impl ConditionalAccessEngine {
             Condition::GroupMembership { group_id } => subject.group_ids.contains(group_id),
             Condition::RoleAssignment { role_id } => subject.role_ids.contains(role_id),
             Condition::GeoAllowed { countries: _ } => true,
-            Condition::TimeWindow { start_hour, end_hour } => {
-                let hour = Utc::now().format("%H").to_string().parse::<u8>().unwrap_or(0);
+            Condition::TimeWindow {
+                start_hour,
+                end_hour,
+            } => {
+                let hour = Utc::now()
+                    .format("%H")
+                    .to_string()
+                    .parse::<u8>()
+                    .unwrap_or(0);
                 hour >= *start_hour && hour <= *end_hour
             }
             Condition::DevicePosture { requirement } => device
